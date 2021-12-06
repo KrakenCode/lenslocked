@@ -3,7 +3,28 @@ package main
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
 )
+
+func main() {
+	r := chi.NewRouter()
+
+	r.Use(middleware.Logger)
+	r.Use(middleware.Recoverer)
+
+	r.Get("/", homeHandler)
+	r.Get("/contact", contactHandler)
+	r.Get("/faq", faqHandler)
+	r.Get("/resource/{id}", resourceHandler)
+
+	fmt.Println("Starting the server on :8080...")
+	err := http.ListenAndServe(":8080", r)
+	if err != nil {
+		panic(err)
+	}
+}
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
@@ -35,51 +56,11 @@ func faqHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, content)
 }
 
-// func pathHandler(w http.ResponseWriter, r *http.Request) {
-// 	switch r.URL.Path {
-// 	case "/":
-// 		homeHandler(w, r)
-// 	case "/contact":
-// 		contactHandler(w, r)
-// 	default:
-// 		http.NotFound(w, r)
-// 	}
-// }
+func resourceHandler(w http.ResponseWriter, r *http.Request) {
+	id := chi.URLParam(r, "id")
 
-type Router struct{}
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
-func (router Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	switch r.URL.Path {
-	case "/":
-		homeHandler(w, r)
-	case "/contact":
-		contactHandler(w, r)
-	case "/faq":
-		faqHandler(w, r)
-	default:
-		http.NotFound(w, r)
-	}
-
-	fmt.Printf("Path is: %s\n", r.URL.Path)
-}
-
-func main() {
-
-	// // manually setting up routing for each endpoint
-	// http.Handle("/favicon.ico", http.NotFoundHandler())
-	// http.HandleFunc("/", homeHandler)
-	// http.HandleFunc("/contact", contactHandler)
-
-	// // customer routing using the HandlerFunc type, which implements the Handler interface
-	// // var router http.HandlerFunc = pathHandler
-	// router := http.HandlerFunc(pathHandler)
-
-	// custom routing using the Handler interface
-	router := Router{}
-
-	fmt.Println("Starting the server on :8080...")
-	err := http.ListenAndServe(":8080", router)
-	if err != nil {
-		panic(err)
-	}
+	content := fmt.Sprintf("<p>Passed in resource id is: %s</p>", id)
+	fmt.Fprint(w, content)
 }
