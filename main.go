@@ -15,6 +15,26 @@ func contactHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "<h1>Contact page</h1><p>Email me at <a href=\"mailto:example@gmail.com\">example@gmail.com</a></p>")
 }
 
+func faqHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+	content := `
+	<h1>FAQ Page</h1>
+	<p>
+	Q: Is there a free version?<br>
+	A: Yes! We offer a free trial for 30 days on any paid plans.<br><br>
+
+	Q: What are your support hours?<br>
+	A: We have support staff answering emails 24/7, though response times may be a bit slower on weekends.<br><br>
+
+	Q: How do I contact support?<br>
+	A: Email us = support@example.com<br><br>
+	</p>
+	`
+
+	fmt.Fprint(w, content)
+}
+
 // func pathHandler(w http.ResponseWriter, r *http.Request) {
 // 	switch r.URL.Path {
 // 	case "/":
@@ -34,6 +54,8 @@ func (router Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		homeHandler(w, r)
 	case "/contact":
 		contactHandler(w, r)
+	case "/faq":
+		faqHandler(w, r)
 	default:
 		http.NotFound(w, r)
 	}
