@@ -38,7 +38,7 @@ func (router Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 	}
 
-	fmt.Printf("Path is: %s; Raw Path is: %s\n", r.URL.Path, r.URL.RawPath)
+	fmt.Printf("Path is: %s\n", r.URL.Path)
 }
 
 func main() {
@@ -48,15 +48,14 @@ func main() {
 	// http.HandleFunc("/", homeHandler)
 	// http.HandleFunc("/contact", contactHandler)
 
-	// // customer routing using the HandlerFunc type,
-	// // which implements the Handler interface
+	// // customer routing using the HandlerFunc type, which implements the Handler interface
 	// // var router http.HandlerFunc = pathHandler
 	// router := http.HandlerFunc(pathHandler)
 
 	// custom routing using the Handler interface
 	router := Router{}
 
-	fmt.Println("Starting the server on :3000...")
+	fmt.Println("Starting the server on :8080...")
 	err := http.ListenAndServe(":8080", router)
 	if err != nil {
 		panic(err)
