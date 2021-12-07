@@ -30,29 +30,15 @@ func main() {
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-
 	// make the path OS agnostic
 	tplPath := filepath.Join("templates", "home.gohtml")
-
-	tpl, err := template.ParseFiles(tplPath)
-	if err != nil {
-		log.Printf("error parsing home template: %v", err)
-		http.Error(w, "There was an error parsing the template.", http.StatusInternalServerError)
-		return
-	}
-
-	err = tpl.Execute(w, nil)
-	if err != nil {
-		log.Printf("error executing home template: %v", err)
-		http.Error(w, "There was an error executing the template.", http.StatusInternalServerError)
-		return
-	}
+	executeTemplate(w, tplPath, nil)
 }
 
 func contactHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	fmt.Fprint(w, "<h1>Contact page</h1><p>Email me at <a href=\"mailto:example@gmail.com\">example@gmail.com</a></p>")
+	// make the path OS agnostic
+	tplPath := filepath.Join("templates", "contact.gohtml")
+	executeTemplate(w, tplPath, nil)
 }
 
 func faqHandler(w http.ResponseWriter, r *http.Request) {
@@ -82,4 +68,22 @@ func resourceHandler(w http.ResponseWriter, r *http.Request) {
 
 	content := fmt.Sprintf("<p>Passed in resource id is: %s</p>", id)
 	fmt.Fprint(w, content)
+}
+
+func executeTemplate(w http.ResponseWriter, filepath string, data interface{}) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+	tpl, err := template.ParseFiles(filepath)
+	if err != nil {
+		log.Printf("error parsing template: %v", err)
+		http.Error(w, "There was an error parsing the template.", http.StatusInternalServerError)
+		return
+	}
+
+	err = tpl.Execute(w, data)
+	if err != nil {
+		log.Printf("error executing template: %v", err)
+		http.Error(w, "There was an error executing the template.", http.StatusInternalServerError)
+		return
+	}
 }
