@@ -30,35 +30,18 @@ func main() {
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
-	// make the path OS agnostic
 	tplPath := filepath.Join("templates", "home.gohtml")
 	executeTemplate(w, tplPath, nil)
 }
 
 func contactHandler(w http.ResponseWriter, r *http.Request) {
-	// make the path OS agnostic
 	tplPath := filepath.Join("templates", "contact.gohtml")
 	executeTemplate(w, tplPath, nil)
 }
 
 func faqHandler(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-
-	content := `
-	<h1>FAQ Page</h1>
-	<p>
-	Q: Is there a free version?<br>
-	A: Yes! We offer a free trial for 30 days on any paid plans.<br><br>
-
-	Q: What are your support hours?<br>
-	A: We have support staff answering emails 24/7, though response times may be a bit slower on weekends.<br><br>
-
-	Q: How do I contact support?<br>
-	A: Email us = support@example.com<br><br>
-	</p>
-	`
-
-	fmt.Fprint(w, content)
+	tplPath := filepath.Join("templates", "faq.gohtml")
+	executeTemplate(w, tplPath, nil)
 }
 
 func resourceHandler(w http.ResponseWriter, r *http.Request) {
