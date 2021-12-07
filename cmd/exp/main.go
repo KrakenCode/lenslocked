@@ -6,9 +6,15 @@ import (
 )
 
 type User struct {
-	Name string
-	Bio  string
-	Age  int
+	Name        string
+	Bio         string
+	Age         int
+	ContactInfo map[string]contactInfo
+}
+
+type contactInfo struct {
+	Phone string
+	Email string
 }
 
 func main() {
@@ -21,6 +27,16 @@ func main() {
 		Name: "Dalton",
 		Bio:  "<script>alert(\"XSS attempt\");</alert>",
 		Age:  99,
+		ContactInfo: map[string]contactInfo{
+			"Work": contactInfo{
+				Phone: "123-456-0000",
+				Email: "workExample@example.com",
+			},
+			"Home": contactInfo{
+				Phone: "123-456-1111",
+				Email: "homeExample@example.com",
+			},
+		},
 	}
 
 	err = t.Execute(os.Stdout, user)

@@ -1,5 +1,20 @@
-<h1>Hello, {{.Name}}</h1>
-<p>{{.Bio}}</p>
+<h1>Hello, {{ .Name }}</h1>
+
+<p>Bio: {{ .Bio }}</p>
+
+<p>Age: {{ .Age }}</p>
+
+
+<p>
+<strong>Contact Info:</strong>
+{{range $key, $value := .ContactInfo}}
+<br>
+<strong>{{ $key }}</strong><br>
+Phone: {{ $value.Phone }}<br>
+Email: {{ $value.Email }}<br>
+{{end}}
+</p>
+
 
 <script>
 const user = {
