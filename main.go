@@ -18,38 +18,18 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 
-	tpl, err := views.Parse(filepath.Join("templates", "home.gohtml"))
-	if err != nil {
-		log.Panicln(err)
-	}
+	tpl := views.Must(views.Parse(filepath.Join("templates", "home.gohtml")))
 	r.Get("/", controllers.StaticHandler(tpl))
 
-	tpl, err = views.Parse(filepath.Join("templates", "contact.gohtml"))
-	if err != nil {
-		log.Panicln(err)
-	}
+	tpl = views.Must(views.Parse(filepath.Join("templates", "contact.gohtml")))
 	r.Get("/contact", controllers.StaticHandler(tpl))
 
-	tpl, err = views.Parse(filepath.Join("templates", "faq.gohtml"))
-	if err != nil {
-		log.Panicln(err)
-	}
+	tpl = views.Must(views.Parse(filepath.Join("templates", "faq.gohtml")))
 	r.Get("/faq", controllers.StaticHandler(tpl))
 
 	fmt.Println("Starting the server on :8080...")
-	err = http.ListenAndServe(":8080", r)
+	err := http.ListenAndServe(":8080", r)
 	if err != nil {
 		log.Panicln(err)
 	}
-}
-
-func executeTemplate(w http.ResponseWriter, filepath string, data interface{}) {
-	tpl, err := views.Parse(filepath)
-	if err != nil {
-		log.Printf("error parsing template: %v", err)
-		http.Error(w, "There was an error parsing the template.", http.StatusInternalServerError)
-		return
-	}
-
-	tpl.Execute(w, data)
 }
