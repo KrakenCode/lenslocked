@@ -27,8 +27,8 @@ func main() {
 	tpl = views.Must(views.ParseFS(templates.FS, "faq.gohtml"))
 	r.Get("/faq", controllers.FAQ(tpl))
 
-	fmt.Println("Starting the server on :8080...")
-	err := http.ListenAndServe(":8080", r)
+	fmt.Println("Starting the server on localhost:8080...")
+	err := http.ListenAndServe("localhost:8080", r)
 	if err != nil {
 		log.Panicln(err)
 	}
