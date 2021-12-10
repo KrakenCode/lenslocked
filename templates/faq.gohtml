@@ -1,4 +1,13 @@
+{{ define "page" }}
+
 <h1>FAQ Page</h1>
+
+{{ range $element := . }}
+{{ template "qa" $element }}
+{{ end }}
+
+{{ end }}
+
 
 
 {{ define "qa" }}
@@ -6,8 +15,4 @@
 Q: {{ .Question }}<br>
 A: {{ .Answer }}<br>
 </p>
-{{ end }}
-
-{{ range $element := . }}
-{{ template "qa" $element }}
 {{ end }}
