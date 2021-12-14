@@ -27,8 +27,12 @@ func main() {
 	tpl = views.Must(views.ParseFS(templates.FS, "layout-page.gohtml", "faq.gohtml"))
 	r.Get("/faq", controllers.FAQ(tpl))
 
-	tpl = views.Must(views.ParseFS(templates.FS, "layout-page.gohtml", "signup.gohtml"))
-	r.Get("/signup", controllers.StaticHandler(tpl))
+	// tpl = views.Must(views.ParseFS(templates.FS, "layout-page.gohtml", "signup.gohtml"))
+	// r.Get("/signup", controllers.StaticHandler(tpl))
+
+	userController := controllers.Users{}
+	userController.Templates.SignUp = views.Must(views.ParseFS(templates.FS, "layout-page.gohtml", "signup.gohtml"))
+	r.Get("/signup", userController.SignUp)
 
 	fmt.Println("Starting the server on localhost:8080...")
 	err := http.ListenAndServe("localhost:8080", r)
