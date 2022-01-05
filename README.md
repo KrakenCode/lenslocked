@@ -10,20 +10,22 @@ Start the database:
 > docker-compose up -d
 ```
 
+Run the webapp:
+```
+> go run .
+```
+
 (**Optional**) Connect to database with psql:
 ```
 > docker container exec -it lenslocked_db_1 /usr/bin/psql -U user -d lenslocked
 ```
 
-**Optional**: To connect to the database via browser visit: 
+(**Optional**) Connect to the database in browser: 
 ```
 http://localhost:8081/?pgsql=db&username=user&db=lenslocked&ns=public
 ```
 
-Run the webapp:
-```
-> go run .
-```
+
 
 
 
