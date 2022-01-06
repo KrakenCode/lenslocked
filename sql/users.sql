@@ -9,4 +9,6 @@ CREATE TABLE users (
 );
 
 
-INSERT INTO users (email, first_name, last_name, age) VALUES('example@example.com', 'ex-first', 'ex-last', 30)
+INSERT INTO users (email, first_name, last_name, age) VALUES ('user1@lenslocked.com', 'user1', '', 99);
+
+INSERT INTO users (email, first_name, last_name, age) VALUES ('user2@lenslocked.com', 'user2', '', 99);

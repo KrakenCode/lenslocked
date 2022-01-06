@@ -17,7 +17,7 @@ go run .
 
 (**Optional**) Connect to database with psql:
 ```bash
-docker container exec -it lenslocked_db_1 /usr/bin/psql -U user -d lenslocked
+docker container exec -it lenslocked_db_1 /usr/bin/psql -U postgres -d lenslocked
 ```
 
 (**Optional**) Connect to the database in browser: 
