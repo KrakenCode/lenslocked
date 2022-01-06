@@ -6,27 +6,27 @@ Course: https://www.usegolang.com/
 
 # Run the app
 Start the database:
-```
-> docker-compose up -d
+```bash
+docker-compose up -d
 ```
 
 Run the webapp:
-```
-> go run .
+```bash
+go run .
 ```
 
 (**Optional**) Connect to database with psql:
-```
-> docker container exec -it lenslocked_db_1 /usr/bin/psql -U user -d lenslocked
+```bash
+docker container exec -it lenslocked_db_1 /usr/bin/psql -U user -d lenslocked
 ```
 
 (**Optional**) Connect to the database in browser: 
 ```
-http://localhost:8081/?pgsql=db&username=user&db=lenslocked&ns=public
+http://localhost:8081/?pgsql=db&username=postgres&db=lenslocked&ns=public
+
+username: postgres
+password: dev
 ```
-
-
-
 
 
 # Notes
