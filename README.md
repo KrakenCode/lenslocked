@@ -3,6 +3,7 @@ Learning Go web development
 
 Course: https://www.usegolang.com/
 
+2022-01-07 - Waiting on author's completion of v2 of course before completing continuing 
 
 # Run the app
 Start the database:
