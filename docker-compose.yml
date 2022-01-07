@@ -11,7 +11,7 @@ services:
       POSTGRES_PASSWORD: dev
       POSTGRES_DB: lenslocked
     volumes:
-      - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      - ./sql/users.sql:/docker-entrypoint-initdb.d/users.sql
 
   adminer:
     image: adminer
